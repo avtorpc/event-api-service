@@ -1,0 +1,67 @@
+spring:
+  kafka:
+    bootstrap-servers: ${KAFKA_BOOTSTRAP_SERVERS:localhost:9092}
+
+    # =========================
+    # SECURITY (SASL / SSL)
+    # =========================
+    properties:
+      security.protocol: ${KAFKA_SECURITY_PROTOCOL:PLAINTEXT}
+      sasl.mechanism: ${KAFKA_SASL_MECHANISM:}
+
+      sasl.jaas.config: ${KAFKA_SASL_JAAS_CONFIG:}
+
+      ssl.truststore.type: ${KAFKA_SSL_TRUSTSTORE_TYPE:}
+      ssl.truststore.location: ${KAFKA_SSL_CA:}
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
+      properties:
+        acks: all
+
+        # защита от duplicate messages при retry
+        enable.idempotence: true
+
+        retries: 10
+        retry.backoff.ms: 1000
+
+        delivery.timeout.ms: 120000
+        request.timeout.ms: 30000
+
+        max.in.flight.requests.per.connection: 5
+
+        spring.json.add.type.headers: false
+
+app:
+  kafka:
+    topics:
+      verification-event: ${KAFKA_TOPIC_VERIFICATION_EVENT:verification_event}
+      auth-event: ${KAFKA_TOPIC_AUTH_EVENT:auth_event}
+      bitrix-event: ${KAFKA_TOPIC_BITRIX_EVENT:bitrix_event}
+
+routing:
+  file: ${ROUTING_FILE:/etc/app/routing.yml}
+
+server:
+  port: ${SERVER_PORT_JAVA:8080}
+
+management:
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: health,info,mappings
+
+  endpoint:
+    health:
+      probes:
+        enabled: true
+
+  health:
+    livenessstate:
+      enabled: true
+
+    readinessstate:
+      enabled: true

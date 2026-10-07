@@ -1,0 +1,65 @@
+# Gradle
+.gradle/
+build/
+
+# Logs
+*.log
+logs/
+
+# Spring Boot / DB local files
+*.h2.db
+*.trace.db
+
+# Env & secrets
+.env
+*.env
+*.pem
+*.key
+*.p12
+*.jks
+
+# Kafka / Docker data
+kafka-data/
+zookeeper-data/
+docker-data/
+
+# JVM crash logs
+hs_err_pid*
+replay_pid*
+
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+.vscode/
+
+# OS
+.DS_Store
+
+# NetBeans / Eclipse (если вдруг)
+.classpath
+.project
+.settings/
+.factorypath
+
+# Gradle wrapper (оставляем!)
+!gradle/wrapper/gradle-wrapper.jar
+# MESTO: local/runtime files must not enter the new history
+.DS_Store
+.idea/
+.vscode/
+*.log
+*.tmp
+*.cache
+*.pem
+*.key
+*.p12
+*.jks
+/.env
+/.env.dev
+/.env.test
+/.env.local
+/.env.local.php
+/.env.*.local

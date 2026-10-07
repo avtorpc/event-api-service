@@ -1,0 +1,40 @@
+# --- Gradle wrapper ---
+/gradlew text eol=lf
+gradlew.bat text eol=crlf
+
+# --- Java source ---
+*.java text eol=lf
+
+# --- Gradle files ---
+*.gradle text eol=lf
+gradle.properties text eol=lf
+
+# --- YAML / config (Spring Boot / Kafka / K8s) ---
+*.yml text eol=lf
+*.yaml text eol=lf
+*.json text eol=lf
+
+# --- Scripts ---
+*.sh text eol=lf
+*.bat text eol=crlf
+
+# --- Docker / K8s ---
+Dockerfile text eol=lf
+docker-compose.yml text eol=lf
+*.dockerfile text eol=lf
+
+# Kubernetes manifests
+k8s/**/*.yaml text eol=lf
+k8s/**/*.yml text eol=lf
+
+# --- Binary files ---
+*.jar binary
+*.war binary
+*.zip binary
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+
+# --- Fonts / compiled resources ---
+*.class binary
