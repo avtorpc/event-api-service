@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Service;
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @Service
@@ -26,11 +27,18 @@ public class KafkaProducerService {
                     topic
             );
 
+            try {
             kafkaTemplate.send(
                     topic,
                     event.getEventId(),
                     event
-            );
+            ).get(5, TimeUnit.SECONDS);
+            } catch (InterruptedException e) {
+                Thread.currentThread().interrupt();
+                throw new IllegalStateException("Kafka publication interrupted", e);
+            } catch (Exception e) {
+                throw new IllegalStateException("Kafka did not acknowledge publication", e);
+            }
         }
     }
 }
